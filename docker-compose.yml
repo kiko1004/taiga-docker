@@ -53,14 +53,14 @@ services:
     volumes:
       - taiga-db-data:/var/lib/postgresql/data
     networks:
-      - taiga
+      - dokploy-network
 
   taiga-back:
     image: taigaio/taiga-back:latest
     environment: *default-back-environment
     volumes: *default-back-volumes
     networks:
-      - taiga
+      - dokploy-network
     depends_on:
       taiga-db:
         condition: service_healthy
@@ -75,7 +75,7 @@ services:
     environment: *default-back-environment
     volumes: *default-back-volumes
     networks:
-      - taiga
+      - dokploy-network
     depends_on:
       taiga-db:
         condition: service_healthy
@@ -95,7 +95,7 @@ services:
     volumes:
       - taiga-async-rabbitmq-data:/var/lib/rabbitmq
     networks:
-      - taiga
+      - dokploy-network
 
   taiga-front:
     image: taigaio/taiga-front:latest
@@ -106,7 +106,7 @@ services:
       PUBLIC_REGISTER_ENABLED: "true"
       # ...your customizations go here
     networks:
-      - taiga
+      - dokploy-network
     # volumes:
     #   - ./conf.json:/usr/share/nginx/html/conf.json
 
@@ -117,7 +117,7 @@ services:
       RABBITMQ_PASS: "${RABBITMQ_PASS}"
       TAIGA_SECRET_KEY: "${SECRET_KEY}"
     networks:
-      - taiga
+      - dokploy-network
     depends_on:
       taiga-events-rabbitmq:
         condition: service_started
@@ -133,7 +133,7 @@ services:
     volumes:
       - taiga-events-rabbitmq-data:/var/lib/rabbitmq
     networks:
-      - taiga
+      - dokploy-network
 
   taiga-protected:
     image: taigaio/taiga-protected:latest
@@ -141,7 +141,7 @@ services:
       MAX_AGE: "${ATTACHMENTS_MAX_AGE}"
       SECRET_KEY: "${SECRET_KEY}"
     networks:
-      - taiga
+      - dokploy-network
 
   taiga-gateway:
     image: nginx:1.19-alpine
@@ -166,4 +166,5 @@ volumes:
   taiga-events-rabbitmq-data:
 
 networks:
-  taiga:
+  dokploy-network:
+    external: true:
