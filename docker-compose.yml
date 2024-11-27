@@ -152,7 +152,7 @@ services:
       - taiga-static-data:/taiga/static
       - taiga-media-data:/taiga/media
     networks:
-      - taiga
+      - dokploy-network
     depends_on:
       - taiga-front
       - taiga-back
@@ -167,4 +167,4 @@ volumes:
 
 networks:
   dokploy-network:
-    external: true:
+    external: true
