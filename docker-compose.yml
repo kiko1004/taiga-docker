@@ -8,6 +8,7 @@ x-environment:
   POSTGRES_USER: "${POSTGRES_USER}"
   POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
   POSTGRES_HOST: "taiga-db"
+  PUBLIC_REGISTER_ENABLED: "True"
   # Taiga settings
   TAIGA_SECRET_KEY: "${SECRET_KEY}"
   TAIGA_SITES_SCHEME: "${TAIGA_SCHEME}"
@@ -102,6 +103,7 @@ services:
       TAIGA_URL: "${TAIGA_SCHEME}://${TAIGA_DOMAIN}"
       TAIGA_WEBSOCKETS_URL: "${WEBSOCKETS_SCHEME}://${TAIGA_DOMAIN}"
       TAIGA_SUBPATH: "${SUBPATH}"
+      PUBLIC_REGISTER_ENABLED: "true"
       # ...your customizations go here
     networks:
       - taiga
